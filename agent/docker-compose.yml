@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  agent:
+    build: .
+    container_name: personal-ai-agent
+    volumes:
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    environment:
+      - CHROME_HEADLESS=true
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    stdin_open: true
+    tty: true
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp:size=512M
